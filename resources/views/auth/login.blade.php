@@ -83,20 +83,20 @@
                         </div>
 
                         <div class="form-group mt-3">
-                            <label for="captcha">Captcha</label>
-                            <div class="mb-2">
-                                <img src="{{ captcha_src('flat') }}" id="captcha-image" alt="captcha">
-                                <button type="button" class="btn btn-secondary btn-sm"
-                                    onclick="document.getElementById('captcha-image').src='/captcha?'+Math.random()">
-                                    Reload
-                                </button>
-                            </div>
-                            <input
-                                type="text"
-                                name="captcha"
-                                class="form-control @error('captcha') is-invalid @enderror"
-                                placeholder="Masukkan captcha"
-                                required
+    <label for="captcha">Captcha</label>
+    <div class="ms-2 d-flex justify-content-center align-items-center gap-3">
+        <img src="{{ captcha_src('flat') }}" id="captcha-image" alt="captcha">
+        <button type="button" class="btn btn-secondary btn-sm"
+            onclick="document.getElementById('captcha-image').src='/captcha?'+Math.random()">
+            Reload
+        </button>
+    </div>
+    <input
+        type="text"
+        name="captcha"
+        class="form-control @error('captcha') is-invalid @enderror"
+        placeholder="Masukkan captcha"
+        required
                             >
                             @error('captcha')
                                 <span class="text-danger">{{ $message }}</span>
