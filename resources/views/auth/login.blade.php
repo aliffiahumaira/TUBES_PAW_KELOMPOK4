@@ -13,10 +13,17 @@
 
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Alamat E-Mail') }}</label>
-
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
+                                <input
+                                    id="email"
+                                    type="email"
+                                    class="form-control @error('email') is-invalid @enderror"
+                                    name="email"
+                                    value="{{ old('email') }}"
+                                    required
+                                    autocomplete="email"
+                                    autofocus
+                                >
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -27,10 +34,15 @@
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
+                                <input
+                                    id="password"
+                                    type="password"
+                                    class="form-control @error('password') is-invalid @enderror"
+                                    name="password"
+                                    required
+                                    autocomplete="current-password"
+                                >
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -42,8 +54,13 @@
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
+                                    <input
+                                        class="form-check-input"
+                                        type="checkbox"
+                                        name="remember"
+                                        id="remember"
+                                        {{ old('remember') ? 'checked' : '' }}
+                                    >
                                     <label class="form-check-label" for="remember">
                                         {{ __('Ingat Saya') }}
                                     </label>
@@ -64,6 +81,28 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="form-group mt-3">
+                            <label for="captcha">Captcha</label>
+                            <div class="mb-2">
+                                <img src="{{ captcha_src('flat') }}" id="captcha-image" alt="captcha">
+                                <button type="button" class="btn btn-secondary btn-sm"
+                                    onclick="document.getElementById('captcha-image').src='/captcha?'+Math.random()">
+                                    Reload
+                                </button>
+                            </div>
+                            <input
+                                type="text"
+                                name="captcha"
+                                class="form-control @error('captcha') is-invalid @enderror"
+                                placeholder="Masukkan captcha"
+                                required
+                            >
+                            @error('captcha')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
                     </form>
                 </div>
             </div>

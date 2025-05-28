@@ -7,6 +7,7 @@ use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use Mews\Captcha\Captcha;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,3 +54,8 @@ Route::get('/expense/edit/{id}', [ExpenseController::class, 'edit'])->name('expe
 Route::post('/expense/update', [ExpenseController::class, 'update'])->name('expenses.update');
 Route::get('/expense/delete/{id}', [ExpenseController::class, 'destroy'])->name('expenses.delete');
 
+
+
+Route::get('captcha', function () {
+    return captcha_img('flat');
+});
