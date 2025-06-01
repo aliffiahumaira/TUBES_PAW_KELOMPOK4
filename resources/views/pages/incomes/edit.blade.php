@@ -25,8 +25,9 @@
                 <div class="card mx-auto mt-5">
                     <div class="card-header">Update Pendapatan</div>
                     <div class="card-body">
-                        <form action="{{ route('incomes.update') }}" method="POST">
+                        <form action="{{ route('incomes.update', $income->id) }}" method="POST">
                             @csrf
+                            @method('PUT')
                             <input type="hidden" name="income_id" value="{{ $income->id }}">
                             <div class="form-group">
                                 <div class="form-label-group">
@@ -47,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="float-right">
-                                <a href="{{ route('incomes.index') }}" class="btn btn-success">Back</a>
+                                <a href="{{ route('incomes.index') }}" class="btn btn-secondary">Kembali</a>
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </form>

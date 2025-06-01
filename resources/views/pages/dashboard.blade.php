@@ -20,12 +20,13 @@
     <div class="row">
         <div class="col-xl-6 offset-xl-3 col-sm-12 mb-3">
             <ul class="list-group">
-                <li class="list-group-item bg-info text-center text-white">
+                <!-- Ganti bg-info ke bg-primary -->
+                <li class="list-group-item bg-primary text-center text-white">
                     <span>Biaya Bulan Ini</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Total Pendapatan
-                    <span class="badge badge-primary badge-pill text-white">{{ formatRupiah($incomes) }}</span>
+                    <span class="badge badge-success badge-pill text-white">{{ formatRupiah($incomes) }}</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Total Pengeluaran
@@ -39,13 +40,13 @@
         </div>
     </div>
 
-    <!-- Icon Cards-->
+    <!-- Icon Cards -->
     <div class="row">
         @php
             $cards = [
                 ['color' => 'primary', 'icon' => 'table', 'text' => 'Total', 'link' => route('notes.index')],
                 ['color' => 'success', 'icon' => 'dollar-sign', 'text' => App\Models\Income::where('user_id', Auth::user()->id)->count() . ' Pendapatan', 'link' => route('incomes.index')],
-                ['color' => 'danger', 'icon' => 'money-bill', 'text' => App\Models\Expense::where('user_id', Auth::user()->id)->count() . ' Pengeluaran', 'link' => route('expense.index')],
+                ['color' => 'danger', 'icon' => 'money-bill', 'text' => App\Models\Expense::where('user_id', Auth::user()->id)->count() . ' Pengeluaran', 'link' => route('expenses.index')],
                 ['color' => 'info', 'icon' => 'sticky-note', 'text' => App\Models\Note::where('user_id', Auth::user()->id)->count() . ' Note', 'link' => route('notes.index')],
             ];
         @endphp
@@ -76,7 +77,8 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <i class="fas fa-chart-pie"></i>
-                    Pendapatan Vs Pengeluaran <small class="badge badge-info">(Data Bulan Ini)</small>
+                    Pendapatan Vs Pengeluaran
+                    <small class="badge badge-primary">(Data Bulan Ini)</small>
                 </div>
                 <div class="card-body">
                     <canvas id="incomeExpenseChart" width="100%" height="30"></canvas>
@@ -109,7 +111,7 @@
             labels: ["Pendapatan", "Pengeluaran"],
             datasets: [{
                 data: [income, expense],
-                backgroundColor: ['#28a745', '#dc3545'],
+                backgroundColor: ['#28a745', '#dc3545'], // Hijau dan Merah
             }],
         },
         options: {

@@ -6,48 +6,80 @@
             <li class="breadcrumb-item">
                 <a href="{{ route('index') }}">Dashboard</a>
             </li>
-            <li class="breadcrumb-item active">
-                <a href="{{ route('expense.index') }}">Pengeluaran</a>
+            <li class="breadcrumb-item">
+                <a href="{{ route('expenses.index') }}">Pengeluaran</a>
             </li>
             <li class="breadcrumb-item active">Edit</li>
         </ol>
+
+        {{-- Tampilkan error validasi --}}
         @if ($errors->any())
             <div class="alert alert-danger alert-dismissible fade show rounded" role="alert">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span></button>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
+                    <span aria-hidden="true">×</span>
+                </button>
+                <ul class="mb-0">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
             </div>
         @endif
+
         <div class="row">
-            <div class="col-xl-8 offset-2">
-                <div class="card mx-auto mt-5">
-                    <div class="card-header">Update Pengeluaran</div>
+            <div class="col-xl-8 offset-xl-2">
+                <div class="card mt-4">
+                    <div class="card-header">
+                        Update Pengeluaran
+                    </div>
                     <div class="card-body">
-                        <form action="{{ route('expenses.update') }}" method="POST">
+                        <form action="{{ route('expenses.update', $expense->id) }}" method="POST">
                             @csrf
-                            <input type="hidden" name="expense_id" value="{{ $expense->id }}">
+                            @method('PUT') {{-- Penting: agar request dianggap PUT oleh Laravel --}}
+
                             <div class="form-group">
-                                <div class="form-label-group">
-                                    <input type="text" id="expense_title" class="form-control" placeholder="Email address" required="required" autofocus="autofocus" name="expense_title" value="{{ $expense->expense_title }}">
-                                    <label for="expense_title">Keterangan</label>
-                                </div>
+                                <label for="expense_title">Keterangan</label>
+                                <input
+                                    type="text"
+                                    id="expense_title"
+                                    name="expense_title"
+                                    class="form-control"
+                                    placeholder="Keterangan"
+                                    required
+                                    autofocus
+                                    value="{{ old('expense_title', $expense->expense_title) }}"
+                                >
                             </div>
+
                             <div class="form-group">
-                                <div class="form-label-group">
-                                    <input type="number" step="any" min="0.01" id="expense_amount" class="form-control" placeholder="Password" required="required" name="expense_amount" value="{{ $expense->expense_amount }}">
-                                    <label for="expense_amount">Jumlah Pengeluaran</label>
-                                </div>
+                                <label for="expense_amount">Jumlah Pengeluaran</label>
+                                <input
+                                    type="number"
+                                    id="expense_amount"
+                                    name="expense_amount"
+                                    class="form-control"
+                                    placeholder="Jumlah Pengeluaran"
+                                    step="any"
+                                    min="0.01"
+                                    required
+                                    value="{{ old('expense_amount', $expense->expense_amount) }}"
+                                >
                             </div>
+
                             <div class="form-group">
-                                <div class="form-label-group">
-                                    <input type="date" id="expense_date" class="form-control" placeholder="Password" required="required" name="expense_date" value="{{ $expense->expense_date }}">
-                                    <label for="expense_date">Tanggal</label>
-                                </div>
+                                <label for="expense_date">Tanggal</label>
+                                <input
+                                    type="date"
+                                    id="expense_date"
+                                    name="expense_date"
+                                    class="form-control"
+                                    required
+                                    value="{{ old('expense_date', $expense->expense_date) }}"
+                                >
                             </div>
-                            <div class="float-right">
-                                <a href="{{ route('expense.index') }}" class="btn btn-success">Kembali</a>
+
+                            <div class="d-flex justify-content-end">
+                                <a href="{{ route('expenses.index') }}" class="btn btn-secondary mr-2">Kembali</a>
                                 <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </form>

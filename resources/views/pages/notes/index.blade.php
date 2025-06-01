@@ -21,7 +21,7 @@
         	<div class="col-xl-6 offset-xl-3 col-sm-12 mb-3">
         		<ul class="list-group">
 				  <li class="list-group-item d-flex justify-content-between align-items-center">
-				    <a href="{{ route('notes.create') }}" class="badge badge-success p-2 mx-auto" >Tambahkan Note</a>
+				    <a href="{{ route('notes.create') }}" class="badge badge-primary p-2 mx-auto" >Tambahkan Note</a>
 				  </li>
 				</ul>
         	</div>
@@ -34,8 +34,8 @@
                         <div class="card-header">
                             <span class="float-left">{{ $note->note_date }}</span>
                             <span class="btn-group-sm float-right">
-                                <a href="{{ route('notes.edit',$note->id) }}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i></a>
-                                <a href="{{ route('notes.delete',$note->id) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
+                                <a href="{{ route('notes.edit',$note->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                                <a href="{{ route('notes.destroy',$note->id) }}" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></a>
                             </span>
                         </div>
                         <div class="card-body">

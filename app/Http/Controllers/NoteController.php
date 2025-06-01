@@ -62,12 +62,12 @@ class NoteController extends Controller
         $note->note_date = $request->note_date;
         $note->update();
 
-        return redirect('/notes')->with('message', 'note details updated successfully');
+        return redirect('/notes')->with('message', 'Rincian note berhasil diperbarui');
     }
 
     public function destroy($id)
     {
         Note::findOrFail($id)->delete();
-        return back()->with('message', 'Note details deleted successfully');
+        return back()->with('message', 'Rincian note berhasil dihapus');
     }
 }

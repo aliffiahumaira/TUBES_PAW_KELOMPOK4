@@ -63,12 +63,12 @@ class IncomeController extends Controller
         $income->income_date = $request->income_date;
         $income->update();
 
-        return redirect('/incomes')->with('message', 'Income details updated successfully');
+        return redirect('/incomes')->with('message', 'Rincian pendapatan berhasil diperbarui');
     }
 
     public function destroy($id)
     {
         Income::findOrFail($id)->delete();
-        return back()->with('message', 'Income details deleted successfully');
+        return back()->with('message', 'Rincian pendapatan berhasil dihapus');
     }
 }

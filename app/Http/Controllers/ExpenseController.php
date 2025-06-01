@@ -45,26 +45,26 @@ class ExpenseController extends Controller
         return view('pages.expenses.edit', $data);
     }
 
-    public function update(Request $request)
-    {
-        $request->validate([
-            'expense_title' => 'required',
-            'expense_amount' => 'required',
-            'expense_date'=> 'required'
-        ]);
+public function update(Request $request, $id)
+{
+    $request->validate([
+        'expense_title' => 'required',
+        'expense_amount' => 'required',
+        'expense_date'=> 'required'
+    ]);
 
-        $expense = Expense::findOrFail($request->expense_id);
-        $expense->expense_title = $request->expense_title;
-        $expense->expense_amount = $request->expense_amount;
-        $expense->expense_date = $request->expense_date;
-        $expense->update();
+    $expense = Expense::findOrFail($id);
+    $expense->expense_title = $request->expense_title;
+    $expense->expense_amount = $request->expense_amount;
+    $expense->expense_date = $request->expense_date;
+    $expense->save();
 
-        return redirect('/expense')->with('message', 'Expense details updated successfully');
-    }
+    return redirect('/expenses')->with('message', 'Rincian pengeluaran berhasil diperbarui');
+}
 
     public function destroy($id)
     {
         Expense::findOrFail($id)->delete();
-        return back()->with('message', 'Expense details deleted successfully');
+        return back()->with('message', 'Rincian pengeluaran berhasil dihapus');
     }
 }
