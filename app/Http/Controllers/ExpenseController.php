@@ -36,7 +36,7 @@ class ExpenseController extends Controller
         $expense->user_id = Auth::user()->id;
         $expense->save();
 
-        return redirect('/expense')->with('message', 'New Expense Added');
+        return redirect('/expenses')->with('message', 'New Expense Added');
     }
 
     public function edit($id)

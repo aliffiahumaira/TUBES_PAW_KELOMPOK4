@@ -7,7 +7,7 @@
                 <a href="{{ route('index') }}">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">
-                <a href="{{ route('expense.index') }}">Pengeluaran</a>
+                <a href="{{ route('expenses.index') }}">Pengeluaran</a>
             </li>
             <li class="breadcrumb-item active">Masukkan</li>
         </ol>
@@ -25,7 +25,7 @@
                 <div class="card mx-auto mt-5">
                     <div class="card-header">Masukkan pengeluaran</div>
                     <div class="card-body">
-                        <form action="{{ route('expense.store') }}" method="POST">
+                        <form action="{{ route('expenses.store') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                 <div class="form-label-group">
@@ -46,7 +46,7 @@
                                 </div>
                             </div>
                             <div class="float-right">
-                                <a href="{{ route('expense.index') }}" class="btn btn-success">Back</a>
+                                <a href="{{ route('expenses.index') }}" class="btn btn-success">Back</a>
                                 <button type="submit" class="btn btn-primary">Save</button>
                             </div>
                         </form>

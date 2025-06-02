@@ -5,7 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NoteController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\ExpenseController;
-use App\Http\Controllers\SummaryController;  // <-- pastikan ini sudah di-import
+use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use Mews\Captcha\Captcha;
@@ -55,7 +55,7 @@ Route::middleware(['auth'])->group(function () {
 // Captcha
 // Captcha reload
 Route::get('/reload-captcha', function () {
-    $config = request()->get('config', 'default'); // ← Tempatkan di sini
+    $config = request()->get('config', 'default'); 
     return response()->json([
         'captcha' => captcha_img($config),
     ]);
