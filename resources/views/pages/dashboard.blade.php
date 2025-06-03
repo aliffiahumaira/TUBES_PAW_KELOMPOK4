@@ -22,7 +22,7 @@
             <ul class="list-group">
                 <!-- Ganti bg-info ke bg-primary -->
                 <li class="list-group-item bg-primary text-center text-white">
-                    <span>Biaya Bulan Ini</span>
+                    <span>Transaksi Bulan Ini</span>
                 </li>
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     Total Pendapatan
