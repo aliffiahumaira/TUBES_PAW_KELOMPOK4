@@ -3,18 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-Use Auth;
-use Illuminate\support\Carbon;
-Use App\Models\Income;
-Use App\Models\Expense;
+use Auth;
+use Illuminate\Support\Carbon;
+use App\Models\Income;
+use App\Models\Expense;
+use App\Models\Note;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -22,31 +18,50 @@ class HomeController extends Controller
 
     public function index()
     {
+        $userId = Auth::id();
 
-        $data['incomes'] = Income::where('user_id', Auth::User()->id)->whereYear('income_date', Carbon::now()->year)->whereMonth('income_date', Carbon::now()->month)->sum('income_amount');
-        $data['expenses'] = Expense::where('user_id', Auth::User()->id)->whereYear('expense_date', Carbon::now()->year)->whereMonth('expense_date', Carbon::now()->month)->sum('expense_amount');
-        $data['balance'] = $data['incomes'] - $data['expenses'];
+        // Hitung total pendapatan bulan ini
+        $incomes = Income::where('user_id', $userId)
+            ->whereYear('income_date', Carbon::now()->year)
+            ->whereMonth('income_date', Carbon::now()->month)
+            ->sum('income_amount');
 
-        return view('pages.dashboard', $data);
-    }
+        // Hitung total pengeluaran bulan ini
+        $expenses = Expense::where('user_id', $userId)
+            ->whereYear('expense_date', Carbon::now()->year)
+            ->whereMonth('expense_date', Carbon::now()->month)
+            ->sum('expense_amount');
 
-    public function summary()
-    {
-        $incomes = Income::where('user_id', Auth::User()->id)->get()->toArray();
-        $expenses = Expense::where('user_id', Auth::User()->id)->get()->toArray();
-        foreach ($incomes as $key => $value) {
-            $incomes[$key]['type'] = 'income';
-        }
+        $balance = $incomes - $expenses;
 
-        foreach ($expenses as $key => $value) {
-            $expenses[$key]['type'] = 'expense';
-        }
+        // Siapkan data cards
+        $cards = [
+            [
+                'color' => 'primary',
+                'icon' => 'table',
+                'text'  => 'Total',
+                'link'  => route('summary.monthly'),
+            ],
+            [
+                'color' => 'success',
+                'icon' => 'dollar-sign',
+                'text'  => Income::where('user_id', $userId)->count() . ' Pendapatan',
+                'link'  => route('incomes.index'),
+            ],
+            [
+                'color' => 'danger',
+                'icon' => 'money-bill',
+                'text'  => Expense::where('user_id', $userId)->count() . ' Pengeluaran',
+                'link'  => route('expenses.index'),
+            ],
+            [
+                'color' => 'info',
+                'icon' => 'sticky-note',
+                'text'  => Note::where('user_id', $userId)->count() . ' Note',
+                'link'  => route('summary.monthly'),
+            ],
+        ];
 
-        $data['results'] = array_merge($incomes, $expenses);
-        $data['total_income'] = Income::where('user_id', Auth::User()->id)->sum('income_amount');
-        $data['total_expense'] = Expense::where('user_id', Auth::User()->id)->sum('expense_amount');
-        $data['balance'] = $data['total_income'] - $data['total_expense'];
-
-        return view('pages.summary', $data);
+        return view('pages.dashboard', compact('incomes', 'expenses', 'balance', 'cards'));
     }
 }

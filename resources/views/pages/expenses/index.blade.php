@@ -42,7 +42,7 @@
                 <div class="col-xl-4 col-sm-6 mb-3">
                     <div class="card text-white bg-danger o-hidden h-100">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <span class="text-white">{{ $expense->expense_date }}</span>
+                            <span>{{ \Carbon\Carbon::parse($expense->expense_date)->format('d-m-Y') }}</span>
                             <span>
                                 <a href="{{ route('expenses.edit', $expense->id) }}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                                 <form action="{{ route('expenses.destroy', $expense->id) }}" method="POST" style="display:inline-block;">
